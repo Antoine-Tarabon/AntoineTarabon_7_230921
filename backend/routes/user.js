@@ -1,10 +1,12 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const userCtrl = require('../controllers/user')
 
-//route pour s'inscrire
-router.post('/signup', userCtrl.signup);
-//route pour se connecter 
-router.post('/login', userCtrl.login);
+// user display: 'block',
+router.get('/', userCtrl.getAllUsers);
+router.get('/:id', userCtrl.userInfo);
+router.put("/:id", userCtrl.updateUser);
+router.delete('/:id', userCtrl.deleteUser);
+router.patch('/follow/:id', userCtrl.follow);
+router.patch('/unfollow/:id', userCtrl.unfollow);
 
 module.exports = router;
