@@ -29,12 +29,14 @@ mongoose
     );
 
 //Import routes
-const Routes = require('./routes/');
+const postRoutes = require('./routes/auth');
+const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 
 //Route Middlewares
-app.use('/api/auth', userRoutes);
-app.use('/api/', Routes);
+app.use('/api/auth', authRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/user', userRoutes);
 
 //lancement du server
 app.listen(process.env.APP_PORT, () => console.log('Server Up and Running'));
