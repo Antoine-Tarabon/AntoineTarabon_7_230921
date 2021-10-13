@@ -29,7 +29,7 @@ mongoose
     );
 
 //Import routes
-const postRoutes = require('./routes/auth');
+const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 
