@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const userCtrl = require('../controllers/user');
-const uploadCtrl = require('../controllers/upload.controller');
+const uploadCtrl = require('../controllers/upload');
 const multer = require("multer");
 const upload = multer();
 

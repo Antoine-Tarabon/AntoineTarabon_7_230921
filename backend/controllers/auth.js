@@ -1,8 +1,7 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/User');
+const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 
-//logique métier des routes users
 
 //inscription
 exports.signup = (req, res, next) => {
@@ -10,7 +9,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         //création du user par rapport au model
-        const user = new User({
+        const user = new userModel({
           email: req.body.email,
           password: hash
         });
@@ -52,3 +51,8 @@ exports.login = (req, res, next) => {
     })
     .catch(error => res.status(500).json({ error }));
 };
+
+exports.logout = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1 });
+  res.redirect('/');
+}
