@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const User = require('../models/user');
+const userModel = require('../models/user');
 const jwt = require('jsonwebtoken');
 
 
@@ -9,12 +9,11 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         //création du user par rapport au model
-        const user = new userModel({
+        userModel.create({
           email: req.body.email,
-          password: hash
-        });
-        //sauvegarde du user
-        user.save()
+          password: hash,
+          pseudo: req.body.pseudo
+        })
           .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
           .catch(error => res.status(400).json({ error }));
       })
@@ -24,7 +23,7 @@ exports.signup = (req, res, next) => {
 //connexion
 exports.login = (req, res, next) => {
   //récuperation du user par son email
-  User.findOne({ email: req.body.email })
+  userModel.findOne({ email: req.body.email })
     .then(user => {
       //si l'utilisateur n'existe pas 
       if (!user) {

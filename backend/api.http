@@ -1,0 +1,12 @@
+POST http://localhost:3000/api/auth/register
+Accept: application/json
+
+{
+    "email": "pandore4@outlook.fr",
+    "password": "atpand4",
+    "pseudo": "pando"
+}
+
+###
+GET http://localhost:3000/api/user
+Accept: application/json

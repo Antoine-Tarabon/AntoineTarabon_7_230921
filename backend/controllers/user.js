@@ -3,12 +3,12 @@ const ObjectID = require("mongoose").Types.ObjectId;
 
 //logique métier des routes users
 
-module.exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   const users = await userModel.find().select("-password");
   res.status(200).json(users);
 };
 
-module.exports.userInfo = (req, res) => {
+exports.userInfo = (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -18,7 +18,7 @@ module.exports.userInfo = (req, res) => {
   }).select("-password");
 };
 
-module.exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -41,7 +41,7 @@ module.exports.updateUser = async (req, res) => {
   }
 };
 
-module.exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   if (!ObjectID.isValid(req.params.id))
     return res.status(400).send("ID unknown : " + req.params.id);
 
@@ -53,7 +53,7 @@ module.exports.deleteUser = async (req, res) => {
   }
 };
 
-module.exports.follow = async (req, res) => {
+exports.follow = async (req, res) => {
   if (
     !ObjectID.isValid(req.params.id) ||
     !ObjectID.isValid(req.body.idToFollow)
@@ -86,7 +86,7 @@ module.exports.follow = async (req, res) => {
   }
 };
 
-module.exports.unfollow = async (req, res) => {
+exports.unfollow = async (req, res) => {
   if (
     !ObjectID.isValid(req.params.id) ||
     !ObjectID.isValid(req.body.idToUnfollow)
