@@ -35,20 +35,16 @@ GET http://localhost:3000/api/user
 Accept: application/json
 
 ###
-GET http://localhost:3000/api/localhost:3000/api/user/:id
-Content-Type: application/json
-
-{
-    "_id": "61696a7a1d2f1bd8a7e8421a"
-}
+GET http://localhost:3000/api/localhost:3000/api/user/616fe270f4d0811cd7578f48
+Accept: application/json
 
 ###
 PUT http://localhost:3000/api/localhost:3000/api/user/:id
 Content-Type: application/json
 
 ###
-DELETE  http://localhost:3000/api/localhost:3000/api/user/:id
-Content-Type: application/json
+DELETE  http://localhost:3000/api/localhost:3000/api/user/61696a7a1d2f1bd8a7e8421a
+Accept: : application/json
 
 ###
 PATCH   http://localhost:3000/api/localhost:3000/api/user/follow/:id

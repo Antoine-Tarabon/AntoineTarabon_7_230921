@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const userModel = require('../models/user');
 const jwt = require('jsonwebtoken');
+const { signUpErrors, signInErrors } = require('../utils/errors');
 
 
 //inscription

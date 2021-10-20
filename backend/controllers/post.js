@@ -1,6 +1,6 @@
 const postModel = require("../models/post");
 const userModel = require("../models/user");
-//const { uploadErrors } = require("../utils/errors");
+const { uploadErrors } = require("../utils/errors");
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const { promisify } = require("util");
