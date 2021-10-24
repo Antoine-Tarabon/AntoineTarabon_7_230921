@@ -23,19 +23,14 @@ exports.updateUser = async (req, res) => {
     return res.status(400).send("ID unknown : " + req.params.id);
 
   try {
-    await userModel.findOneAndUpdate(
+    const user = await userModel.findOneAndUpdate(
       { _id: req.params.id },
       {
-        $set: {
-          bio: req.body.bio,
-        },
+        bio: req.body.bio,
       },
-      { new: true, upsert: true, setDefaultsOnInsert: true },
-      (err, docs) => {
-        if (!err) return res.send(docs);
-        if (err) return res.status(500).send({ message: err });
-      }
+      { new: true, upsert: true, setDefaultsOnInsert: true }
     );
+    res.send(user);
   } catch (err) {
     return res.status(500).json({ message: err });
   }
@@ -65,22 +60,15 @@ exports.follow = async (req, res) => {
     await userModel.findByIdAndUpdate(
       req.params.id,
       { $addToSet: { following: req.body.idToFollow } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        if (!err) res.status(201).json(docs);
-        else return res.status(400).jsos(err);
-      }
+      { new: true, upsert: true }
     );
     // add to following list
     await userModel.findByIdAndUpdate(
       req.body.idToFollow,
       { $addToSet: { followers: req.params.id } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        // if (!err) res.status(201).json(docs);
-        if (err) return res.status(400).jsos(err);
-      }
+      { new: true, upsert: true }
     );
+    return res.status(200).json({ message: "follow " });
   } catch (err) {
     return res.status(500).json({ message: err });
   }
@@ -97,22 +85,15 @@ exports.unfollow = async (req, res) => {
     await userModel.findByIdAndUpdate(
       req.params.id,
       { $pull: { following: req.body.idToUnfollow } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        if (!err) res.status(201).json(docs);
-        else return res.status(400).jsos(err);
-      }
+      { new: true, upsert: true }
     );
     // remove to following list
     await userModel.findByIdAndUpdate(
       req.body.idToUnfollow,
       { $pull: { followers: req.params.id } },
-      { new: true, upsert: true },
-      (err, docs) => {
-        // if (!err) res.status(201).json(docs);
-        if (err) return res.status(400).jsos(err);
-      }
+      { new: true, upsert: true }
     );
+    return res.status(200).json({ message: "unfollow " });
   } catch (err) {
     return res.status(500).json({ message: err });
   }

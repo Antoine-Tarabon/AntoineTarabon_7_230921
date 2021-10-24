@@ -1,5 +1,5 @@
 
-----------------AUTH-----------------------
+###----------------AUTH-----------------------
 ###
 POST http://localhost:3000/api/auth/register
 Content-Type:  application/json
@@ -29,68 +29,80 @@ Content-Type:  application/json
 }
 
 
---------------------user-------------------
+###--------------------user-------------------
 ###
 GET http://localhost:3000/api/user
 Accept: application/json
 
 ###
-GET http://localhost:3000/api/localhost:3000/api/user/616fe270f4d0811cd7578f48
+GET http://localhost:3000/api/user/616fe270f4d0811cd7578f48
 Accept: application/json
 
 ###
-PUT http://localhost:3000/api/localhost:3000/api/user/:id
+PUT http://localhost:3000/api/user/616fe270f4d0811cd7578f48
 Content-Type: application/json
 
+{
+    "bio": "test de la bio2"
+}
+
 ###
-DELETE  http://localhost:3000/api/localhost:3000/api/user/61696a7a1d2f1bd8a7e8421a
+DELETE  http://localhost:3000/api/user/61696a7a1d2f1bd8a7e8421a
 Accept: : application/json
 
 ###
-PATCH   http://localhost:3000/api/localhost:3000/api/user/follow/:id
+PATCH   http://localhost:3000/api/user/follow/616fe270f4d0811cd7578f48
+Content-Type: application/json
+
+{
+    "idToFollow": "616f39d3cd39dc1438a00b0f"
+}
+
+###
+PATCH   http://localhost:3000/api/user/unfollow/616fe270f4d0811cd7578f48
+Content-Type: application/json
+
+{
+    "idToUnfollow": "616f39d3cd39dc1438a00b0f"
+}
+
+###
+POST http://localhost:3000/api/user/upload
+Content-Type: application/json
+
+###--------------------------POST--------------------------------
+###
+GET http://localhost:3000/api/post
 Content-Type: application/json
 
 ###
-PATCH   http://localhost:3000/api/localhost:3000/api/user/unfollow/:id
+POST http://localhost:3000/api/post
 Content-Type: application/json
 
 ###
-POST http://localhost:3000/api/localhost:3000/api/user/upload
-Content-Type: application/json
-
---------------------------POST--------------------------------
-###
-GET http://localhost:3000/api/localhost:3000/api/post
+PUT http://localhost:3000/api/post/:id
 Content-Type: application/json
 
 ###
-POST http://localhost:3000/api/localhost:3000/api/post
+DELETE http://localhost:3000/api/post/:id
 Content-Type: application/json
 
 ###
-PUT http://localhost:3000/api/localhost:3000/api/post/:id
+PATCH http://localhost:3000/api/post/like-post/:id
 Content-Type: application/json
 
 ###
-DELETE http://localhost:3000/api/localhost:3000/api/post/:id
+PATCH http://localhost:3000/api/post/unlike-post/:id
 Content-Type: application/json
 
 ###
-PATCH http://localhost:3000/api/localhost:3000/api/post/like-post/:id
+PATCH http://localhost:3000/api/post/comment-post/:id
 Content-Type: application/json
 
 ###
-PATCH http://localhost:3000/api/localhost:3000/api/post/unlike-post/:id
+PATCH http://localhost:3000/api/post/edit-comment-post/:id
 Content-Type: application/json
 
 ###
-PATCH http://localhost:3000/api/localhost:3000/api/post/comment-post/:id
-Content-Type: application/json
-
-###
-PATCH http://localhost:3000/api/localhost:3000/api/post/edit-comment-post/:id
-Content-Type: application/json
-
-###
-PATCH http://localhost:3000/api/localhost:3000/api/post/delete-comment-post/:id
+PATCH http://localhost:3000/api/post/delete-comment-post/:id
 Content-Type: application/json
