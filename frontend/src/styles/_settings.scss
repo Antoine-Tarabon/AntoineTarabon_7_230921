@@ -1,18 +1,21 @@
 @font-face {
-    font-family: "font-1";
-    src: url();
-  }
-  @font-face {
-    font-family: "font-2";
-    src: url();
-  }
-  @font-face {
-    font-family: "font-3";
-    src: url();
-  }
-  
-  $font-1: "font-1", sans-serif;
-  $font-2: "font-2", serif;
-  $font-3: "font-3", serif;
-  
-  
+  font-family: "font-1";
+  src: url(./assets/fonts/Raleway-ExtraLight.ttf);
+}
+@font-face {
+  font-family: "font-2";
+  src: url(./assets/fonts/Raleway-Regular.ttf);
+}
+@font-face {
+  font-family: "font-3";
+  src: url(./assets/fonts/Raleway-ExtraBold.ttf);
+}
+
+$font-1: "font-1", sans-serif;
+$font-2: "font-2", serif;
+$font-3: "font-3", serif;
+
+$color-1: #4f33eb;
+$color-2: #8eb8fb;
+$color-3: rgb(0, 22, 44);
+$color-4: #b1d6f5;

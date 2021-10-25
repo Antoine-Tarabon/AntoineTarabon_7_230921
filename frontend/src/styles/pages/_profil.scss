@@ -1,0 +1,42 @@
+.profil-page {
+    margin: 80px auto 0;
+    max-width: 1200px;
+
+    .log-container {
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 60% 40%;
+    
+        @media screen and(max-width: 885px) {
+          grid-template-columns: 1fr;
+        }
+      }
+  
+    ul {
+        list-style-type: none;
+        li {
+          cursor: pointer;
+          border-radius: 20px;
+          padding: 10px 20px;
+          transition: 0.2s;
+
+          @media screen and(max-width: 550px) {
+            width: 80%;
+            margin: 0 auto;
+          }
+        }
+        .active-btn {
+          background: $color-1;
+
+          &:hover {
+            background: $color-2;
+          }
+        }
+        li:not(.active-btn) {
+          &:hover {
+            background: $color-2;
+            transform: translateX(3px);
+          }
+        }
+      }
+  }
