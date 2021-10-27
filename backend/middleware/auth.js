@@ -1,20 +1,39 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const userModel = require("../models/user");
 
-module.exports = (req, res, next) => {
-  try {
-    //récuperation du token et informations du user
-    const token = req.headers.authorization.split(' ')[1];
-    const decodedToken = jwt.verify(token, process.env.TOKEN_JWT);
-    const userId = decodedToken.userId;
-    //on vérifie que cest le bon user
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Invalid user ID';
-    } else {
-      next();
-    }
-  } catch {
-    res.status(401).json({
-      error: new Error('Invalid request!')
+module.exports.checkUser = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.TOKEN_JWT, async (err, decodedToken) => {
+      if (err) {
+        res.locals.user = null;
+        // res.cookie("jwt", "", { maxAge: 1 });
+        next();
+      } else {
+        let user = await userModel.findById(decodedToken.id);
+        res.locals.user = user;
+        next();
+      }
     });
+  } else {
+    res.locals.user = null;
+    next();
+  }
+};
+
+module.exports.requireAuth = (req, res, next) => {
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.TOKEN_JWT, async (err, decodedToken) => {
+      if (err) {
+        console.log(err);
+        res.send(200).json('no token')
+      } else {
+        console.log(decodedToken.id);
+        next();
+      }
+    });
+  } else {
+    //console.log('No token');
   }
 };

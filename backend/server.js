@@ -1,9 +1,14 @@
 const express = require('express');
-const app = express();
+const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const path = require('path');
+const {checkUser, requireAuth} = require('./middleware/auth');
 const cors = require('cors');
+
+const app = express();
+
+app.use(cookieParser());
 
 //Appel du fichier .env
 dotenv.config();
@@ -19,7 +24,7 @@ const corsOptions = {
     'preflightContinue': false
   }
   app.use(cors(corsOptions));
-  
+
 //mise en place du multer
 app.use('/images', express.static(path.join(__dirname, 'images')));
 // Connect to DB
@@ -37,6 +42,12 @@ mongoose
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
+
+// jwt
+app.get('*', checkUser);
+app.get('/jwtid', requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id)
+});
 
 //Route Middlewares
 app.use('/api/auth', authRoutes);
