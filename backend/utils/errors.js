@@ -37,7 +37,10 @@ exports.signUpErrors = (err) => {
       errors.format = "Format incompatabile";
   
     if (err.message.includes('max size'))
-      errors.maxSize = "Le fichier dépasse 500ko";
+      errors.maxSize = "Le fichier dépasse 2MB";
+
+      if (err.message.includes('image creation'))
+      errors.maxSize = "l'image n'a pas pu être créée";
   
     return errors
   }
