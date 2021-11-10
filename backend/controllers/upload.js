@@ -15,9 +15,10 @@ module.exports.uploadProfil = async (req, res) => {
     if (req.file.size > 2000000) throw Error("max size");
 
     const fileName = req.body.name + ".jpg";
+    
 
     fs.writeFile(`${__dirname}/../../frontend/public/uploads/profil/${fileName}`, req.file.buffer, 'base64', function(err) {
-      throw Error('image creation')
+      //throw Error('image creation')
     });
 
   } catch (err) {

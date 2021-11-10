@@ -15,7 +15,7 @@ export default function userReducer(state = initialState, action) {
         return {
           ...state,
           bio: action.payload
-        }
+        };
         default:
             return state;    
     }    
