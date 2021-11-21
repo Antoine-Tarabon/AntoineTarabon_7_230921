@@ -8,6 +8,10 @@ export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
 
 
+// comments
+export const ADD_COMMENT = "ADD_COMMENT";
+
+
 export const getPosts = (num) => {
   return (dispatch) => {
     return axios
@@ -69,6 +73,20 @@ export const deletePost = (postId) => {
     })
       .then((res) => {
         dispatch({ type: DELETE_POST, payload: { postId } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+export const addComment = (postId, commenterId, text, commenterPseudo) => {
+  return (dispatch) => {
+    return axios({
+      method: "patch",
+      url: `${process.env.REACT_APP_API_URL}api/post/comment-post/${postId}`,
+      data: { commenterId, text, commenterPseudo },
+    })
+      .then((res) => {
+        dispatch({ type: ADD_COMMENT, payload: { postId } });
       })
       .catch((err) => console.log(err));
   };

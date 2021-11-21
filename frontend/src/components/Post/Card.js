@@ -5,13 +5,13 @@ import FollowHandler from "../Profil/FollowHandler";
 import LikeButton from "./LikeButton";
 import { updatePost } from "../../actions/post.action";
 import DeleteCard from "./DeleteCard";
-//import CardComments from "./CardComments";
+import CardComments from "./CardComments";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdated, setIsUpdated] = useState(false);
   const [textUpdate, setTextUpdate] = useState(null);
-  //const [showComments, setShowComments] = useState(false);
+  const [showComments, setShowComments] = useState(false);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
@@ -22,7 +22,6 @@ const Card = ({ post }) => {
     }
     setIsUpdated(false);
   };
-
 
   useEffect(() => {
     !isEmpty(usersData[0]) && setIsLoading(false);
@@ -52,7 +51,7 @@ const Card = ({ post }) => {
             <div className="card-header">
               <div className="pseudo">
                 <h3>
-                {!isEmpty(usersData[0]) &&
+                  {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
                         if (user._id === post.posterId) return user.pseudo;
@@ -80,6 +79,9 @@ const Card = ({ post }) => {
                 </div>
               </div>
             )}
+            {post.picture && (
+              <img src={post.picture} alt="card-pic" className="card-pic" />
+            )}
             {post.video && (
               <iframe
                 width="500"
@@ -91,7 +93,7 @@ const Card = ({ post }) => {
                 title={post._id}
               ></iframe>
             )}
-             {userData._id === post.posterId && (
+            {userData._id === post.posterId && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(!isUpdated)}>
                   <img src="./img/icons/edit.svg" alt="edit" />
@@ -100,9 +102,18 @@ const Card = ({ post }) => {
               </div>
             )}
             <div className="card-footer">
+              <div className="comment-icon">
+                <img
+                  onClick={() => setShowComments(!showComments)}
+                  src="./img/icons/message1.svg"
+                  alt="comment"
+                />
+                <span>{post.comments.length}</span>
+              </div>
               <LikeButton post={post} />
+              <img src="./img/icons/share.svg" alt="share" />
             </div>
-            <h3>CardComments post={post}</h3> 
+            {showComments && <CardComments post={post} />}
           </div>
         </>
       )}
