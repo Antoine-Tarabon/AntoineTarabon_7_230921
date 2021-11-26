@@ -5,6 +5,7 @@ const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
+const path = require('path');
 
 exports.readPost = (req, res) => {
   postModel.find((err, docs) => {
@@ -19,25 +20,22 @@ exports.createPost = async (req, res) => {
   if (req.file !== null) {
     try {
       if (
-        req.file.detectedMimeType !== "image/jpg" &&
-        req.file.detectedMimeType !== "image/png" &&
-        req.file.detectedMimeType !== "image/jpeg"
+        path.extname(req.file.originalname) !== ".jpg" &&
+        path.extname(req.file.originalname) !== ".png" &&
+        path.extname(req.file.originalname) !== ".jpeg"
       )
         throw Error("invalid file");
 
-      if (req.file.size > 500000) throw Error("max size");
+      if (req.file.size > 5000000) throw Error("max size");
     } catch (err) {
       const errors = uploadErrors(err);
       return res.status(201).json({ errors });
     }
     fileName = req.body.posterId + Date.now() + ".jpg";
 
-    await pipeline(
-      req.file.stream,
-      fs.createWriteStream(
-        `${__dirname}/../client/public/uploads/posts/${fileName}`
-      )
-    );
+    fs.writeFile(`${__dirname}/../../frontend/public/uploads/posts/${fileName}`, req.file.buffer, 'base64', function(err) {
+      //throw Error('image creation')
+    });
   }
 
   const newPost = new postModel({
