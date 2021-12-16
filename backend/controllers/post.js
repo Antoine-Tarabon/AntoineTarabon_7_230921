@@ -17,7 +17,7 @@ exports.readPost = (req, res) => {
 exports.createPost = async (req, res) => {
   let fileName;
 
-  if (req.file !== null) {
+  if (req.file) {
     try {
       if (
         path.extname(req.file.originalname) !== ".jpg" &&
@@ -29,7 +29,7 @@ exports.createPost = async (req, res) => {
       if (req.file.size > 5000000) throw Error("max size");
     } catch (err) {
       const errors = uploadErrors(err);
-      return res.status(201).json({ errors });
+      return res.status(400).json({ errors });
     }
     fileName = req.body.posterId + Date.now() + ".jpg";
 
@@ -41,7 +41,7 @@ exports.createPost = async (req, res) => {
   const newPost = new postModel({
     posterId: req.body.posterId,
     message: req.body.message,
-    picture: req.file !== null ? "./uploads/posts/" + fileName : "",
+    picture: req.file ? "./uploads/posts/" + fileName : "",
     video: req.body.video,
     likers: [],
     comments: [],

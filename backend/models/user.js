@@ -1,11 +1,12 @@
-const mongoose = require('mongoose');
+
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
-const userSchema = new mongoose.Schema(
+module.exports = (sequelize, Sequelize) => {
+  const User = sequelize.define('User',
   {
     pseudo: {
-      type: String,
+      type: Sequelize.STRING,
       required: true,
       minLength: 3,
       maxLength: 55,
@@ -13,7 +14,7 @@ const userSchema = new mongoose.Schema(
       trim: true
     },
     email: {
-      type: String,
+      type: Sequelize.STRING,
       required: true,
       validate: [isEmail],
       lowercase: true,
@@ -21,33 +22,36 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     password: {
-      type: String,
+      type: Sequelize.STRING,
       required: true,
       max: 1024,
       minlength: 6
     },
     picture: {
-      type: String,
+      type: Sequelize.STRING,
       default: "./uploads/profil/no-profile-pic.png"
     },
     bio :{
-      type: String,
+      type: Sequelize.STRING,
       max: 1024,
     },
     followers: {
-      type: [String]
+      type: [Sequelize.STRING]
     },
     following: {
-      type: [String]
+      type: [Sequelize.STRING]
     },
     likes: {
-      type: [String]
+      type: [Sequelize.STRING]
     }
   },
   {
     timestamps: true,
   }
 );
+
+return User;
+};
 
 // play function before save into display: 'block',
 userSchema.pre("save", async function(next) {
@@ -70,4 +74,3 @@ userSchema.statics.login = async function(email, password) {
 
 
 
-module.exports = mongoose.model('user', userSchema);

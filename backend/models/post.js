@@ -1,41 +1,41 @@
-const mongoose = require('mongoose');
-
-const postSchema = new mongoose.Schema(
+module.exports = (sequelize, Sequelize) => {
+  const Post = sequelize.define('Post',
   {
-    posterId: {
-      type: String,
-      required: true
-    },
+    // user_id: {
+    //   type: binInteger,
+    //   required: true
+    // },
     message: {
-      type: String,
-      trim: true,
+      type: Sequelize.STRING,
       maxlength: 500,
     },
     picture: {
-      type: String,
+      type: Sequelize.STRING,
     },
     video: {
-      type: String,
+      type: Sequelize.STRING,
     },
-    likers: {
-      type: [String],
-      required: true,
-    },
-    comments: {
-      type: [
-        {
-          commenterId:String,
-          commenterPseudo: String,
-          text: String,
-          timestamp: Number,
-        }
-      ],
-      required: true,
-    },
+    // likers: {
+    //   type: [String],
+    //   required: true,
+    // },
+    // comments: {
+    //   type: [
+    //     {
+    //       commenterId:String,
+    //       commenterPseudo: String,
+    //       text: String,
+    //       timestamp: Number,
+    //     }
+    //   ],
+    //   required: true,
+    // },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model('post', postSchema);
+return Post;
+};
+
