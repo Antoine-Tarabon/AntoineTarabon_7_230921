@@ -1,19 +1,17 @@
+const User = require("./user");
+const Post = require("./post");
+
 module.exports = (sequelize, Sequelize) => {
  const Comment = sequelize.define('Comment',
  {
-    commenterId: {
-        type: Sequelize.STRING,
-    },
-    commenterPseudo: {
-        type: Sequelize.STRING,
-    },
     text: {
         type: Sequelize.STRING,
+        allowNull: false
     },
     timestamp: {
         type: Sequelize.INTEGER,
+        allowNull: false
     }, 
-    required: true,
  }
 );
     

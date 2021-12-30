@@ -1,10 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Post = sequelize.define('Post',
   {
-    // user_id: {
-    //   type: binInteger,
-    //   required: true
-    // },
     message: {
       type: Sequelize.STRING,
       maxlength: 500,
